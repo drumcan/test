@@ -1,0 +1,29 @@
+<html>
+  <head> 
+  <script type="text/javascript" src="https://js.braintreegateway.com/v1/braintree-data.js"></script>
+  </head>
+  <body>
+    <h1>Braintree Credit Card Transaction Form</h1>
+    <div>
+      <form action="/create_transaction" method="POST" id="braintree-payment-form">
+      <script>
+          BraintreeData.setup("yz2f2d9s3v4wmygp", "braintree-payment-form", BraintreeData.environments.sandbox);
+        </script>
+        <p>
+          <label>Card Number</label>
+          <input type="text" size="20" autocomplete="off" name="number" />
+        </p>
+        <p>
+          <label>CVV</label>
+          <input type="text" size="4" autocomplete="off" name="cvv" />
+        </p>
+        <p>
+          <label>Expiration (MM/YYYY)</label>
+          <input type="text" size="2" name="month" /> / <input type="text" size="4" name="year" />
+        </p>
+        <input type="submit" id="submit" />
+      </form>
+    </div>
+    </script>
+  </body>
+</html>

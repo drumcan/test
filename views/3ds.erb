@@ -1,0 +1,5 @@
+<script src="https://js.braintreegateway.com/3ds/v1/braintree-3ds.js"></script>
+<script>
+// Using the generated client_token to instantiate the ThreeDSecure client.
+var client = Braintree.ThreeDSecure.create(<%= @client_token %>);
+</script>

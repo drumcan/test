@@ -1,0 +1,33 @@
+<script type="text/javascript">
+  var client = new braintree.api.Client({clientToken: "<%= @client_token %>"});
+
+  jQuery(document).ready(function($) {
+    $("#form").submit(function(event) {
+      client.addSEPAMandate({
+        locale: $("#locale").val(),
+        iban: $("#iban").val(),
+        bic: $("#bic").val(),
+        accountHolderName: $("#account_holder_name").val(),
+        billingAddress: {
+          firstName: $("#first_name").val(),
+          lastName: $("#last_name").val(),
+          company: $("#company").val(),
+          streetAddress: $("#street_address").val(),
+          extendedAddress: $("#extended_address").val(),
+          locality: $("#locality").val(),
+          region: $("#region").val(),
+          postalCode: $("#postal_code").val(),
+          countryName: $("#country_name").val()
+        }
+      },
+      function(err, mandate){
+        if (!err) {
+          $("#mandate_reference_number").val(mandate.mandateReferenceNumber);
+          $("#checkout_form").submit();
+        } else {
+          console.log(err);
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,45 @@
+<html>
+  <head>
+  <script type="text/javascript" src="https://js.braintreegateway.com/v1/braintree.js"></script>
+  <script type="text/javascript" src="https://js.braintreegateway.com/v1/braintree-data.js"></script>
+  </head>
+  <body>
+    <h1>Braintree Customer Form</h1>
+      <form action="/create_customer" method="POST" id="braintree-payment-form">
+      <script>
+          BraintreeData.setup("yz2f2d9s3v4wmygp", "braintree-payment-form", BraintreeData.environments.sandbox);
+        </script>
+      <h2>Customer Information</h2>
+      <p>
+        <label>First Name</label>
+        <input type="text" name="first_name" id="first_name"></input>
+      </p>
+      <p>
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name" id="last_name"></input>
+      </p>
+      <p>
+        <label for="postal_code">Postal Code</label>
+        <input type="text" name="postal_code" id="postal_code"></input>
+      </p>
+      <h2>Credit Card</h2>
+      <p>
+        <label>Card Number</label>
+        <input type="text" size="20" autocomplete="off" data-encrypted-name="number" />
+      </p>
+      <p>
+        <label>CVV</label>
+        <input type="text" size="4" autocomplete="off" data-encrypted-name="cvv" />
+      </p>
+      <p>
+        <label>Expiration (MM/YYYY)</label>
+        <input type="text" size="2" data-encrypted-name="month" /> / <input type="text" size="4" data-encrypted-name="year" />
+      </p>
+      <input class="submit-button" type="submit" />
+    </form>
+    <script type="text/javascript">
+      var braintree = Braintree.create("MIIBCgKCAQEAmEUdf59siod27UCxT3w7iXL/oQwyDpu6PRgEcUjIRbQX/JVRgbnQu+ksY3bds6cJWc7Mwhv2CRDCNSzxjbsgoAmL2JXrxNT1u8tlTU3TlKwjCXVxthz9nxi1wwTpHi0DK9VN9BGicjN3tc1NFY6O5yC3XRW1/ZN8qUUaB5I+1/wqghT67Q6KsBZG18YON7FTNhEL+cKAyCE5uBoQPstOLE15daMe5CrYCcdRyriwc4OQEtzDLdGmXYm5gtmEFbP7pifElkpX83VzZA6uwGvUCxO89NW/E7u9QEPK/Wdjo+zHho3yRgW+4OcsEsdLtjR/JLN1feNiTS7KYpXFzpCiKQIDAQAB");
+      braintree.onSubmitEncryptForm("braintree-payment-form");
+    </script>
+  </body>
+</html>

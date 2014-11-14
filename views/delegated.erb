@@ -1,0 +1,22 @@
+<!DOCTYPE html
+<html>
+  <head>
+    <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+    <script src="https://js.braintreegateway.com/v1/braintree-data.js"></script>
+  </head>
+  <body>
+  <form id="checkout" method="post" action="/checkout">
+    <script>
+  BraintreeData.setup("yz2f2d9s3v4wmygp", "checkout", BraintreeData.environments.sandbox);
+   </script>
+    <div id="dropin"></div> 
+    <input type="submit" value="Pay $10">
+  </form>
+ </body> 
+   <script type="text/javascript">
+  braintree.setup("<%= @client_token %>", 'dropin', {
+  container: "checkout"
+  });
+    </script>
+    
+</html>

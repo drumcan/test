@@ -1,0 +1,46 @@
+
+<html>
+  <head>
+  <script src="https://js.braintreegateway.com/3ds/v1/braintree-3ds.js"></script>
+
+  </head>
+  <body>
+    <h1>Braintree Credit Card Transaction Form</h1>
+    <div>
+      <form action="/create_threeds" method="POST" id="braintree-payment-form">
+        <p>
+          <label>Card Number</label>
+          <input type="text" size="20" autocomplete="off" id=name name="number" />
+        </p>
+        <p>
+          <label>Expiration (MM/YYYY)</label>
+          <input type="text" size="7" id=date name="date" /> 
+        </p>
+        <input type="submit" id="submit" />
+      </form>
+        <script>
+// Using the generated client_token to instantiate the ThreeDSecure client.
+var client = Braintree.ThreeDSecure.create("<%= @client_token %>");
+</script>
+      
+<script>
+client.verify({
+  amount: 500,
+  creditCard: {
+    number: document.getElementByID('number'),
+    expirationDate: document.getElementById('date')
+  }
+}, function (errors, response) {
+  if (!errors) {
+    document.getElementById("three_d_secure_token").value = response.threeDSecureToken;
+  } else {
+    // Handle errors
+
+    for (var i = 0; i < errors.length; i++) {
+      var p = document.createElement("p");
+      p.innerHTML = errors[i].code + " " + errors[i].message;
+      document.body.appendChild(p);
+    }
+  }
+});
+</script>
