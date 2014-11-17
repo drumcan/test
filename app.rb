@@ -1,3 +1,6 @@
+class Partners < ActiveRecord::Base
+end
+
 require "rubygems"
 require 'sinatra'
 require "sinatra/activerecord"
@@ -26,8 +29,7 @@ configure :production do
   )
 end
 
-class Partners < ActiveRecord::Base
-end
+
 
 get "/braintree" do
   @client_token = Braintree::ClientToken.generate
