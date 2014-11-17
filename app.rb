@@ -1,10 +1,11 @@
-class Partners < ActiveRecord::Base
-end
-
 require "rubygems"
 require 'sinatra'
+require 'activerecord'
 require "sinatra/activerecord"
 require 'braintree'
+
+class Partners < ActiveRecord::Base
+end
 
 Braintree::Configuration.environment = :sandbox
 Braintree::Configuration.merchant_id = "yz2f2d9s3v4wmygp"
@@ -28,8 +29,6 @@ configure :production do
     :encoding => 'utf8'
   )
 end
-
-
 
 get "/braintree" do
   @client_token = Braintree::ClientToken.generate
