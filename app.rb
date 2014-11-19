@@ -1,11 +1,8 @@
 require "rubygems"
 require 'sinatra'
-require 'activerecord'
 require "sinatra/activerecord"
 require 'braintree'
 
-class Partners < ActiveRecord::Base
-end
 
 Braintree::Configuration.environment = :sandbox
 Braintree::Configuration.merchant_id = "yz2f2d9s3v4wmygp"
