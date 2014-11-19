@@ -84,7 +84,7 @@ Braintree::Configuration.private_key = "0210baff4bfd241592f4d4894d48b2ae"
 
     notification = Braintree::WebhookNotification.parse(request.params["bt_signature"],
                                                         request.params["bt_payload"])
-    parnter = Partners.new
+    partner = Partners.new
     partner.partners_merchant_id = notification.partner_merchant.partner_merchant_id
     partner.merchant_public_id = notification.partner_merchant.merchant_public_id
     partner.merchant_public_key = notification.partner_merchant.merchant_public_key
