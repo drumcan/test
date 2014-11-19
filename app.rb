@@ -89,6 +89,8 @@ Braintree::Configuration.private_key = "0210baff4bfd241592f4d4894d48b2ae"
     partner.merchant_public_key = notification.partner_merchant.merchant_public_key
     partner.merchant_private_key = notification.partner_merchant.merchant_private_key
     partner.save
+    puts "[Webhook Received #{webhook_notification.timestamp}] Kind: #{webhook_notification.kind}"
+    return 200
 end
 
 get "/partners" do
