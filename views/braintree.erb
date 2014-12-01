@@ -11,6 +11,11 @@
       <input type="submit" value="Submit" />
     </form>
 
+  <select>
+   <% @partners.each do |partner| %>
+    <option value="<%= partner.partners_merchant_id %>"></option>
+  </select>
+
     <script type="text/javascript">
       braintree.paypal.create(
         <%= @client_token %>,

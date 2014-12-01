@@ -9,14 +9,22 @@
     <script>
   BraintreeData.setup("yz2f2d9s3v4wmygp", "checkout", BraintreeData.environments.sandbox);
    </script>
-    <div id="dropin"></div> 
+    <div id="Address"></div>
+    <div id="paypal"></div>
+    <script type="text/javascript">
+  braintree.setup("<%= @client_token %>", 'paypal', {
+    container: "checkout",
+      enableShippingAddress: "true",
+      onSuccess: function(nonce, email, shippingAddress) {
+        writeAddress(shippingAddress);
+    }
+  });
+  function writeAddress(d) {
+    var Address = document.getElementById('Address')
+    Address.innerText ='id:'+ d.id +', default_address:'+ d.default_address +', preferred_address:'+ d.preferred_address +', postal_code:'+ d.postal_code +', region:'+ d.region +', type:'+ d.type +', street_address:'+ d.street_address +', recipient_name:'+ d.recipient_name +', country_code_alpha2:'+ d.country_code_alpha2 +', locality:'+ d.locality +', extended_address:'+ d.extended_address
+  };
+    </script> 
     <input type="submit" value="Pay $10">
   </form>
- </body> 
-   <script type="text/javascript">
-  braintree.setup("<%= @client_token %>", 'dropin', {
-  container: "checkout"
-  });
-    </script>
-    
+ </body>   
 </html>

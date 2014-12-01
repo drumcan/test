@@ -29,6 +29,7 @@ end
 
 get "/braintree" do
   @client_token = Braintree::ClientToken.generate
+  @partners = Partners.all
   erb :braintree
 end
 
@@ -95,8 +96,8 @@ Braintree::Configuration.private_key = "0210baff4bfd241592f4d4894d48b2ae"
 end
 
 get "/partners" do
-@partners = Partners.all
-erb :partners
+  @partners = Partners.all
+  erb :partners
 end
 
 get "/success" do
