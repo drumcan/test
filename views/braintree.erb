@@ -13,7 +13,7 @@
 
   <select>
    <% @partners.each do |partner| %>
-    <option value="<%= partner.partners_merchant_id %>"></option>
+    <option value="<%= partner.partners_merchant_id %>"><%= partner.partners_merchant_id %></option>
  <% end %>
   </select>
 
