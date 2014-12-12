@@ -38,8 +38,20 @@ get "/delegated" do
   erb :delegated
 end
 
+get "/shipping" do 
+  @client_token = Braintree::ClientToken.generate
+  erb :shipping
+end
+
+
 get "/sign_up" do
   erb :sign_up
+end
+
+get "/stored_customer" do 
+  @client_token = Braintree::ClientToken.generate(
+    :customer_id => "32583356")   
+  erb :store_customer
 end
 
 post "/sign_up" do
@@ -51,11 +63,17 @@ post "/checkout" do
     :merchant_account_id => "magento",
     :amount => "10.00",
     :payment_method_nonce => params[:payment_method_nonce],
+    :shipping => {
+      :street_address => params[:street_address],
+      :locality => params[:city],
+      :region => params[:state],
+      :postal_code => params[:postal_code]
+    },
     :device_data => params[:device_data],
     :options => {
       :store_in_vault => true,
       :submit_for_settlement => true
-  }
+    }
   )
   if result.success?
     "Success ID: #{result.transaction.id}"
