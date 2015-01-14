@@ -129,14 +129,14 @@ post "/merchant_create" do
   end
 end
 
-get "/webhooks_merchant_account"
+get "/webhooks_merchant_account" do
 
 challenge = request.params["bt_challenge"]
   challenge_response = Braintree::WebhookNotification.verify(challenge)
   return [200, challenge_response]
 end
 
-post "/webhooks_merchant_account"
+post "/webhooks_merchant_account" do
 
 notification = Braintree::WebhookNotification.parse(
     request.params["bt_signature"],
@@ -152,6 +152,7 @@ notification = Braintree::WebhookNotification.parse(
     merchant_account.status = notification.message
     merchant_account.merchant_account_id = notification.merchant_account.merchant_account_id
   end
+end
 
 get "/merchants" do
   @merchants = MerchantAccount.all
@@ -169,9 +170,6 @@ Braintree::Configuration.private_key = "0210baff4bfd241592f4d4894d48b2ae"
   challenge_response = Braintree::WebhookNotification.verify(challenge)
   return [200, challenge_response]
 end
-
-get "/blah" do 
-  end
 
 post "/webhooks" do
 
