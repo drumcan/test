@@ -100,7 +100,7 @@ end
 post "/merchant_create" do 
   result = Braintree::MerchantAccount.create(
     :individual => {
-      :first_name => params[:first_name],
+      :first_name => Braintree::Test::MerchantAccount::Approve,
       :last_name => params[:last_name],
       :email => params[:email],
       :phone => params[:phone],
