@@ -147,10 +147,16 @@ notification = Braintree::WebhookNotification.parse(
     merchant_account = MerchantAccount.new
     merhcant_account.status = notification.merchant_account.status
     merchant_account.merchant_account_id = notification.merchant_account.merchant_account_id
+    merchant_account.save
+    puts "[Webhook Received #{notification.timestamp}] Kind: #{notification.kind}"
+    return 200
   else 
     merchant_account = MerchantAccount.new
     merchant_account.status = notification.message
     merchant_account.merchant_account_id = notification.merchant_account.merchant_account_id
+    merchant_account.save
+    puts "[Webhook Received #{notification.timestamp}] Kind: #{notification.kind}"
+    return 200
   end
 end
 
