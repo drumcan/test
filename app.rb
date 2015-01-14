@@ -111,7 +111,7 @@ post "/merchant_create" do
         :locality => params[:locality],
         :region => params[:region],
         :postal_code => params[:postal_code]
-    },
+    }},
     :funding => {
       :destination => Braintree::MerchantAccount::FundingDestination::Bank,
       :account_number => params[:account_number],
@@ -121,7 +121,8 @@ post "/merchant_create" do
     :master_merchant_account_id => "hdpcgvhz4rhydzf3",
     :id => params[:id]
   )
-  if result.succes?
+  
+  if result.success?
       "Success! Status: #{result.merchant_account.status}"
   else
      result.message
