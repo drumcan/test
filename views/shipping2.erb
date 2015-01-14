@@ -9,27 +9,12 @@
     <script>
   BraintreeData.setup("yz2f2d9s3v4wmygp", "checkout", BraintreeData.environments.sandbox);
    </script>
-    <div id="Address"></div>
-    <label>Street Address</label>
-    <input type="text" id="street_address" name="street_address" size="20" value=""></input>
-    <label>Postal Code</label>
-    <input type="text" id="postal_code" name="street_address" size="6"></input>
-    <label>City</label>
-    <input type="text" id="city" name="state" size="20"></input>
-    <label>State</label>
-    <input type="text" id="state" name="state" size="2"></input>
-    
-    <div id="paypal"></div>
+    <div id="paypal-button"></div>
     <script type="text/javascript">
-  braintree.setup("<%= @client_token %>", 'paypal', {
-    container: "paypal",enableShippingAddress: "true",
-      onSuccess: function(nonce, email, shippingAddress) {
-        document.getElementById("street_address").setAttribute("value", shippingAddress.street_address);
-        document.getElementById("postal_code").setAttribute("value", shippingAddress.postal_code);
-        document.getElementById("city").setAttribute("value", shippingAddress.locality);
-        document.getElementById("state").setAttribute("value", shippingAddress.region);
-    }   
-  });
+braintree.setup("eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJmZDdlMDVkYzE5OWI4NGNhMjQ3MDJhNjlhNWYzZjMyYzQwZDcyM2Y3NGYwMTYxYzNlNzk0OGU4NzdiNjIwN2Y1fGNyZWF0ZWRfYXQ9MjAxNC0xMi0yOVQxNjo0NjoxMS4yMDcxNjg2OTMrMDAwMFx1MDAyNmN1c3RvbWVyX2lkPTE4NjczOTlcdTAwMjZtZXJjaGFudF9pZD1rempwajc2bW1oZzNmcW1uXHUwMDI2cHVibGljX2tleT1zN3lmcmdnODNrYzh0aHptIiwiY29uZmlnVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL2t6anBqNzZtbWhnM2ZxbW4vY2xpZW50X2FwaS92MS9jb25maWd1cmF0aW9uIiwiY2hhbGxlbmdlcyI6W10sInBheW1lbnRBcHBzIjpbXSwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL2t6anBqNzZtbWhnM2ZxbW4vY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vY2xpZW50LWFuYWx5dGljcy5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIn0sInRocmVlRFNlY3VyZUVuYWJsZWQiOmZhbHNlLCJwYXlwYWxFbmFibGVkIjp0cnVlLCJwYXlwYWwiOnsiZGlzcGxheU5hbWUiOiJNYWdlbnRvIEluYy4iLCJjbGllbnRJZCI6bnVsbCwicHJpdmFjeVVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS9wcCIsInVzZXJBZ3JlZW1lbnRVcmwiOiJodHRwOi8vZXhhbXBsZS5jb20vdG9zIiwiYmFzZVVybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXNzZXRzVXJsIjoiaHR0cHM6Ly9jaGVja291dC5wYXlwYWwuY29tIiwiZGlyZWN0QmFzZVVybCI6bnVsbCwiYWxsb3dIdHRwIjp0cnVlLCJlbnZpcm9ubWVudE5vTmV0d29yayI6dHJ1ZSwiZW52aXJvbm1lbnQiOiJvZmZsaW5lIiwibWVyY2hhbnRBY2NvdW50SWQiOiI3YjNnaGZkNXdwdHZrYm12IiwiY3VycmVuY3lJc29Db2RlIjoiVVNEIn0sImNvaW5iYXNlRW5hYmxlZCI6ZmFsc2UsIm1lcmNoYW50SWQiOiJrempwajc2bW1oZzNmcW1uIiwidmVubW8iOiJvZmYifQ==", "paypal", {
+container: "paypal-button"
+});
+</script>
     </script> 
     <input type="submit" value="Pay $10">
   </form>

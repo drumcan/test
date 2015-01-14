@@ -2,6 +2,7 @@ require "rubygems"
 require 'sinatra'
 require "sinatra/activerecord"
 require 'braintree'
+require 'json'
 
 
 Braintree::Configuration.environment = :sandbox
@@ -33,14 +34,25 @@ get "/braintree" do
   erb :braintree
 end
 
+get "/client_token" do
+  Braintree::ClientToken.generate
+end
+
+
 get "/delegated" do
   @client_token = Braintree::ClientToken.generate
+  puts @client_token
   erb :delegated
 end
 
 get "/shipping" do 
   @client_token = Braintree::ClientToken.generate
   erb :shipping
+end
+
+get "/shipping2" do 
+  @client_token = Braintree::ClientToken.generate
+  erb :shipping2
 end
 
 
@@ -50,7 +62,7 @@ end
 
 get "/stored_customer" do 
   @client_token = Braintree::ClientToken.generate(
-    :customer_id => "32583356")   
+    :customer_id => "60378774")   
   erb :store_customer
 end
 
@@ -72,7 +84,7 @@ post "/checkout" do
     :device_data => params[:device_data],
     :options => {
       :store_in_vault => true,
-      :submit_for_settlement => true
+      :submit_for_settlement => false
     }
   )
   if result.success?
