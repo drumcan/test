@@ -104,7 +104,7 @@ post "/merchant_create" do
       :last_name => params[:last_name],
       :email => params[:email],
       :phone => params[:phone],
-      :date_of_birth => params[:date_of_birth]
+      :date_of_birth => params[:date_of_birth],
       :ssn => params[:ssn],
       :address => {
         :street_address => params[:street_address],
