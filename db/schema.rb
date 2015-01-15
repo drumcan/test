@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141117202246) do
+ActiveRecord::Schema.define(version: 20150115151031) do
+
+  create_table "merchant_accounts", force: true do |t|
+    t.string   "status"
+    t.string   "merchant_account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "partners", force: true do |t|
     t.string   "partners_merchant_id"
@@ -21,4 +28,5 @@ ActiveRecord::Schema.define(version: 20141117202246) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
 end
