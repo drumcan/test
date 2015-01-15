@@ -27,7 +27,13 @@ configure :production do
   )
 end
 
+get "/" do
+  @title = "Index"
+  erb :index
+end
+
 get "/braintree" do
+  @title = "Partners"
   @client_token = Braintree::ClientToken.generate
   @partners = Partners.all
   erb :braintree
@@ -39,33 +45,31 @@ end
 
 
 get "/delegated" do
+  @title = "Dropin UI"
   @client_token = Braintree::ClientToken.generate
-  puts @client_token
   erb :delegated
 end
 
-get "/shipping" do 
+get "/shipping" do
+  @title = "Paypal with Shipping Address" 
   @client_token = Braintree::ClientToken.generate
   erb :shipping
 end
 
-get "/shipping2" do 
-  @client_token = Braintree::ClientToken.generate
-  erb :shipping2
-end
-
-
 get "/sign_up" do
+  @title = "Partners Signup"
   erb :sign_up
 end
 
 get "/stored_customer" do 
+  @title = "Dropin with Existing Customer"
   @client_token = Braintree::ClientToken.generate(
     :customer_id => "60378774")   
   erb :store_customer
 end
 
 post "/sign_up" do
+  @title = "Partners Signup"
   redirect "https://sandbox.braintreegateway.com/partners/demo_merchant/connect?partner_merchant_id=#{params[:partner_merchant_id]}"
 end
 
@@ -94,6 +98,7 @@ post "/checkout" do
 end
 
 get "/merchant_create" do 
+  @title = "Submerchant Create Form"
   erb :merchant_create
 end
 
@@ -161,6 +166,7 @@ notification = Braintree::WebhookNotification.parse(
 end
 
 get "/merchants" do
+  @title = "Submerchants"
   @merchants = MerchantAccount.all
   erb :merchants
 end
