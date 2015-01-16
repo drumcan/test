@@ -1,7 +1,7 @@
 class Transactions < ActiveRecord::Migration
   def change
   	create_table :transactions do |t|
-      t.string :id
+      t.string :transaction_id
       t.string :status
       t.string :amount
       t.string :type
