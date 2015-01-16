@@ -91,12 +91,12 @@ post "/checkout" do
     }
   )
   if result.success?
-    "Success ID: #{result.transaction.id}"
     transaction = Transaction.new
     transaction.transaction_id = result.transaction.id
     transaction.status = result.transaction.status
     transaction.amount = result.transaction.amount
     transaction.save
+    "Success ID: #{result.transaction.id}"
   else
     result.message
   end
