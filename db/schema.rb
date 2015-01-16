@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150115151031) do
+ActiveRecord::Schema.define(version: 20150116163719) do
 
   create_table "merchant_accounts", force: true do |t|
     t.string   "status"

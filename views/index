@@ -1,0 +1,8 @@
+<html>
+   <head>
+     <title><%= @title %></title>
+   </head>
+   <body>
+     <p>Welcome! Please Choose a flow from the above links!</p>
+   </body>
+ </html>
