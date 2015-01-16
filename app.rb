@@ -102,6 +102,12 @@ post "/checkout" do
   end
 end
 
+get '/transactions' do
+  @title = "Tranasction Table"
+  @transactions = Transaction.all
+  erb :transactions
+end
+
 get "/merchant_create" do 
   @title = "Submerchant Create Form"
   erb :merchant_create
