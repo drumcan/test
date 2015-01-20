@@ -78,6 +78,15 @@ post "/checkout" do
     :merchant_account_id => "magento",
     :amount => "10.00",
     :payment_method_nonce => params[:payment_method_nonce],
+    :customer => {
+      :first_name = params[:first_name]
+      :last_name = params[:last_name]
+    }
+    :billing => {
+      :street_address => params[:street_address],
+      :locality => params[:city],
+      :region => params[:state],
+      :postal_code => params[:postal_code]
     :shipping => {
       :street_address => params[:street_address],
       :locality => params[:city],
@@ -91,11 +100,35 @@ post "/checkout" do
     }
   )
   if result.success?
+    
     transaction = Transaction.new
     transaction.transaction_id = result.transaction.id
     transaction.status = result.transaction.status
     transaction.amount = result.transaction.amount
+    transaction.type = result.transaction.type
+    transaction.customer_id = result.transaction.customer_details.id
+    if result.transaction.payment_instrument_type == "CreditCard"
+    {transaction.payment_token = result.transaction.credit_card_details.token}
+    else {transaction.payment_token = result.transaction.paypal.token}
     transaction.save
+    
+    customer = Customer.new
+    customer.first_name = result.transaction.customer_details.first_name
+    customer.last_name = result.transaction.customer_details.last_name
+    customer.street_address = result.transaction.billing_details.street_address
+    customer.city = result.transaction.billing_details.locality
+    customer.state = result.transaction.billing_details.region
+    custoemr.postal_code = result.transaction.billing_details.postal_code
+    customer.save
+
+    payment_method = PaymentMethod.new
+    if result.transaction.payment_instrument_type == "CreditCard"
+    {payment_method.payment_token = result.transaction.credit_card_details.token}
+    else {payment_method.payment_token = result.transaction.paypal.token}
+    payment_method.customer_id = result.transaction.customer_details.id
+    payment_method.payment_instrument_type = result.transaction.payment_instrument_type
+    payment_method.save
+
     "Success ID: #{result.transaction.id}"
   else
     result.message
