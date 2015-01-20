@@ -151,6 +151,7 @@ get 'customers' do
   @title = "Customers"
   @customers = Customer.all
   erb :customers
+end
 
 get "/merchant_create" do 
   @title = "Submerchant Create Form"
