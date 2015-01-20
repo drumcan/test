@@ -121,7 +121,7 @@ post "/checkout" do
     customer.street_address = result.transaction.billing_details.street_address
     customer.city = result.transaction.billing_details.locality
     customer.state = result.transaction.billing_details.region
-    custoemr.postal_code = result.transaction.billing_details.postal_code
+    customer.postal_code = result.transaction.billing_details.postal_code
     customer.save
 
     payment_method = PaymentMethod.new
