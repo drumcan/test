@@ -126,9 +126,9 @@ post "/checkout" do
 
     payment_method = PaymentMethod.new
     if result.transaction.payment_instrument_type == "CreditCard"
-    payment_method.payment_token = result.transaction.credit_card_details.token
+    payment_method.pyment_token = result.transaction.credit_card_details.token
     else 
-      payment_method.payment_token = result.transaction.paypal_details.token
+    payment_method.pyment_token = result.transaction.paypal_details.token
     end
     payment_method.customer_id = result.transaction.customer_details.id
     payment_method.payment_instrument_type = result.transaction.payment_instrument_type
