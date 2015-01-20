@@ -1,3 +1,19 @@
+<table style="width:100%">
+	<tr>
+		<td>Id</td>
+		<td>Status</td>
+		<td>Amount</td>
+		<td>Type</td>
+		<td>Customer ID</td>
+		<td>Payment Token</td>
+	</tr>
 <% @transactions.each do |transaction| %>
-  id: <%= transaction.transaction_id %><br>
+  <tr>
+    <td><%= transaction.transaction_id %></td>
+    <td><%= transaction.status %></td>
+    <td><%= transaction.amount %></td>
+    <td><%= transaction.transaction_type %></td>
+    <td><%= transaction.customer_id%></td>
+    <td><%= transaction.payment_token %></td>
+  </tr>  
 <% end %>
