@@ -147,7 +147,7 @@ get '/transactions' do
   erb :transactions
 end
 
-get 'customers' do
+get '/customers' do
   @title = "Customers"
   @customers = Customer.all
   erb :customers
