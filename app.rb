@@ -79,7 +79,7 @@ post "/checkout" do
     :amount => "10.00",
     :payment_method_nonce => params[:payment_method_nonce],
     :customer => {
-      :first_name => params[:first_name]
+      :first_name => params[:first_name],
       :last_name => params[:last_name]
     },
     :billing => {
