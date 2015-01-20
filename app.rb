@@ -106,7 +106,7 @@ post "/checkout" do
     transaction.transaction_id = result.transaction.id
     transaction.status = result.transaction.status
     transaction.amount = result.transaction.amount
-    transaction.type = result.transaction.type
+    transaction.transaction_type = result.transaction.type
     transaction.customer_id = result.transaction.customer_details.id
     if result.transaction.payment_instrument_type == "CreditCard"
     transaction.payment_token = result.transaction.credit_card_details.token
