@@ -4,7 +4,7 @@ class Transactions < ActiveRecord::Migration
       t.string :transaction_id
       t.string :status
       t.string :amount
-      t.string :type
+      t.string :transaction_type
       t.string :merchant_account_id
       t.string :customer_id
       t.string :payment_token
