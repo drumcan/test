@@ -122,6 +122,7 @@ post "/checkout" do
     customer.city = result.transaction.billing_details.locality
     customer.state = result.transaction.billing_details.region
     customer.postal_code = result.transaction.billing_details.postal_code
+    customer.customer_id = result.transaction.customer_details.id
     customer.save
 
     payment_method = PaymentMethod.new
@@ -145,6 +146,11 @@ get '/transactions' do
   @transactions = Transaction.all
   erb :transactions
 end
+
+get 'customers' do
+  @title = "Customers"
+  @customers = Customer.all
+  erb :customers
 
 get "/merchant_create" do 
   @title = "Submerchant Create Form"

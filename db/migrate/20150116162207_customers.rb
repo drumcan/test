@@ -7,6 +7,7 @@ class Customers < ActiveRecord::Migration
   	  t.string :city
   	  t.string :state
   	  t.string :postal_code
+      t.string :customer_id
       t.timestamps
     end
   end
