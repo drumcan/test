@@ -110,8 +110,9 @@ post "/checkout" do
     transaction.customer_id = result.transaction.customer_details.id
     if result.transaction.payment_instrument_type == "credit_card"
     transaction.payment_token = result.transaction.credit_card_details.token
-    else
+    elsif result.transaction.payment_instrument_type == "paypal_account" 
     transaction.payment_token = result.transaction.paypal_details.token
+
     end
     transaction.save
     
@@ -128,7 +129,7 @@ post "/checkout" do
     payment_method = PaymentMethod.new
     if result.transaction.payment_instrument_type == "credit_card"
     payment_method.payment_token = result.transaction.credit_card_details.token
-    else 
+    elsif result.transaction.payment_instrument_type == "paypal_account" 
     payment_method.payment_token = result.transaction.paypal_details.token
     end
     payment_method.customer_id = result.transaction.customer_details.id
