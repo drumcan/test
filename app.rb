@@ -108,7 +108,7 @@ post "/checkout" do
     transaction.amount = result.transaction.amount
     transaction.transaction_type = result.transaction.type
     transaction.customer_id = result.transaction.customer_details.id
-    if result.transaction.payment_instrument_type == "CreditCard"
+    if result.transaction.payment_instrument_type == "credit_card"
     transaction.payment_token = result.transaction.credit_card_details.token
     else
     transaction.payment_token = result.transaction.paypal_details.token
@@ -126,7 +126,7 @@ post "/checkout" do
     customer.save
 
     payment_method = PaymentMethod.new
-    if result.transaction.payment_instrument_type == "CreditCard"
+    if result.transaction.payment_instrument_type == "credit_card"
     payment_method.payment_token = result.transaction.credit_card_details.token
     else 
     payment_method.payment_token = result.transaction.paypal_details.token
