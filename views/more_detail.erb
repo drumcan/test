@@ -4,12 +4,12 @@
 		<td>Customer Id</td>
 		<td>Payment Instrument Type</td>
 	</tr>
-<% @payment_methods.each do |payment_method| %>
+<% @details.each do |detail| %>
   <tr>
-    <td><%= payment_method.payment_token %></td>
-    <td><%= payment_method.customer_id %></td>
-    <td><%= payment_method.payment_instrument_type %></td>
-    <td><%= @customer.first_name %></td>
-    <td><%= @customer.last_name %></td>
+    <td><%= detail.payment_token %></td>
+    <td><%= detail.customer_id %></td>
+    <td><%= detail.payment_instrument_type %></td>
+    <td><%= detail.first_name %></td>
+    <td><%= detail.last_name %></td>
   </tr>  
 <% end %>

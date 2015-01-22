@@ -73,6 +73,13 @@ post "/sign_up" do
   redirect "https://sandbox.braintreegateway.com/partners/demo_merchant/connect?partner_merchant_id=#{params[:partner_merchant_id]}"
 end
 
+get "/more_detail" do
+  @title = "More detail"
+  @details = PaymentMethod.joins('LEFT OUTER JOIN customer_id ON customers.customer_id = payment_methods.customer_id')
+  end
+  erb :more_detail
+end
+
 post "/checkout" do
   result = Braintree::Transaction.sale(
     :merchant_account_id => "magento",
