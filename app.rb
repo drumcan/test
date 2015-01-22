@@ -75,7 +75,7 @@ end
 
 get "/more_detail" do
   @title = "More detail"
-  @details = PaymentMethod.joins('LEFT OUTER JOIN customer_id ON customers.customer_id = payment_methods.customer_id')
+  @details = PaymentMethod.joins('LEFT OUTER JOIN customers ON customers.customer_id = payment_methods.customer_id')
   erb :more_detail
 end
 
