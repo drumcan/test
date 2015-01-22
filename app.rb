@@ -153,6 +153,13 @@ get '/customers' do
   erb :customers
 end
 
+get '/payment_methods' do 
+   @title = "Payment Methods"
+   @payment_methods = PaymentMethod.all
+   erb :payment_methods
+
+end 
+
 get "/merchant_create" do 
   @title = "Submerchant Create Form"
   erb :merchant_create
