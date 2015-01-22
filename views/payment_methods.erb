@@ -1,0 +1,13 @@
+<table style="width:100%">
+	<tr>
+		<td>Token</td>
+		<td>Customer Id</td>
+		<td>Payment Instrument Type</td>
+	</tr>
+<% @payment_methods.each do |payment_method| %>
+  <tr>
+    <td><%= payment_method.payment_token %></td>
+    <td><%= payment_method.customer_id %></td>
+    <td><%= payment_method.payment_instrument_type %></td>
+  </tr>  
+<% end %>
