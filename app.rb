@@ -73,12 +73,6 @@ post "/sign_up" do
   redirect "https://sandbox.braintreegateway.com/partners/demo_merchant/connect?partner_merchant_id=#{params[:partner_merchant_id]}"
 end
 
-get "/more_detail" do
-  @title = "More detail"
-  @details = PaymentMethod.joins('LEFT OUTER JOIN customers ON customers.customer_id = payment_methods.customer_id')
-  erb :more_detail
-end
-
 post "/checkout" do
   result = Braintree::Transaction.sale(
     :merchant_account_id => "magento",
@@ -107,18 +101,15 @@ post "/checkout" do
     }
   )
   if result.success?
-    
     transaction = Transaction.new
     transaction.transaction_id = result.transaction.id
     transaction.status = result.transaction.status
     transaction.amount = result.transaction.amount
     transaction.transaction_type = result.transaction.type
-    transaction.customer_id = result.transaction.customer_details.id
     if result.transaction.payment_instrument_type == "credit_card"
-    transaction.payment_token = result.transaction.credit_card_details.token
+    transaction.payment_method_id = result.transaction.credit_card_details.token
     elsif result.transaction.payment_instrument_type == "paypal_account" 
-    transaction.payment_token = result.transaction.paypal_details.token
-
+    transaction.payment_method_id = result.transaction.paypal_details.token
     end
     transaction.save
     
@@ -138,8 +129,8 @@ post "/checkout" do
     elsif result.transaction.payment_instrument_type == "paypal_account" 
     payment_method.payment_token = result.transaction.paypal_details.token
     end
-    payment_method.customer_id = result.transaction.customer_details.id
     payment_method.payment_instrument_type = result.transaction.payment_instrument_type
+    payment_method.customer_id = result.transaction.customer_details.id
     payment_method.save
 
     "Success ID: #{result.transaction.id}"
@@ -153,6 +144,19 @@ get '/transactions' do
   @transactions = Transaction.all
   erb :transactions
 end
+
+get '/customer_select' do
+  @title = "Customer select"
+  @customers = Customer.all
+  erb :braintree
+end
+
+post '/find_customer' do
+  @payment_method = PaymentMethod.find_by :customer_id => params[:customer_id]
+  p @payment_method
+  erb :payment_method_for_customer
+  
+end 
 
 get '/customers' do
   @title = "Customers"

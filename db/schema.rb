@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150116163719) do
+ActiveRecord::Schema.define(version: 20150123163219) do
+
+  create_table "customers", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "street_address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "postal_code"
+    t.string   "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "merchant_accounts", force: true do |t|
     t.string   "status"
@@ -25,6 +37,25 @@ ActiveRecord::Schema.define(version: 20150116163719) do
     t.string   "merchant_public_id"
     t.string   "merchant_public_key"
     t.string   "merchant_private_key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payment_methods", force: true do |t|
+    t.string   "payment_token"
+    t.string   "payment_instrument_type"
+    t.string   "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transactions", force: true do |t|
+    t.string   "transaction_id"
+    t.string   "status"
+    t.string   "amount"
+    t.string   "transaction_type"
+    t.string   "merchant_account_id"
+    t.string   "payment_method_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

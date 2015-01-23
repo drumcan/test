@@ -4,25 +4,13 @@
     <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
   </head>
   <body>
-    <form id="merchant-form" action="/create-transaction" method="post">
-      <input type="text" name="payment_method_nonce" id="payment-method-nonce" />
-      <div id="paypal-container"></div>
-      <input type="submit" value="Submit" />
+    <form id="customer-form" action="/find_customer" method="post">
+      <select id="customer_id" name="customer_id">
+       <% @customers.each do |customer| %>
+       <option value="<%= customer.customer_id %>"><%= customer.customer_id %></option>
+       <% end %>
+       </select>
+        <input type="submit" value="Submit" />
     </form>
-
-  <select>
-   <% @partners.each do |partner| %>
-    <option value="<%= partner.partners_merchant_id %>"><%= partner.partners_merchant_id %></option>
- <% end %>
-  </select>
-
-    <script type="text/javascript">
-      braintree.setup("<%= @client_token %>", 'paypal', {
-          container: "paypal-container",  // to specify DOM elements, use an ID, a DOM node, or a jQuery element
-          paymentMethodNonceInputField: "payment-method-nonce"
-        }
-      );
-    </script>
-
   </body>
 </html>
