@@ -177,9 +177,15 @@ get "/merchant_create" do
 end
 
 post "/merchant_create" do 
+
+  if params[:merchant_account] == "Braintree::Test::MerchantAccount::Approve" 
+  @decision = Braintree::Test::MerchantAccount::Approve
+elsif params[:merchant_account] == "Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedOFAC"
+  @decision = Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedOFAC
+end
   result = Braintree::MerchantAccount.create(
     :individual => {
-      :first_name => params[:merchant_account],
+      :first_name => @decision,
       :last_name => params[:last_name],
       :email => params[:email],
       :phone => params[:phone],
