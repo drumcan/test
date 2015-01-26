@@ -134,7 +134,6 @@ post "/checkout" do
     payment_method.save
 
     "Success ID: #{result.transaction.id}"
-    erb :transactions
   else
     result.message
   end
@@ -217,7 +216,6 @@ end
   
   if result.success?
       "Success! Status: #{result.merchant_account.status}"
-      erb :merchants
   else
      result.message
   
