@@ -182,7 +182,14 @@ post "/merchant_create" do
   @decision = Braintree::Test::MerchantAccount::Approve
 elsif params[:merchant_account] == "Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedOFAC"
   @decision = Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedOFAC
+elsif params[:merchant_account]  == "Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedMasterCardMatch"
+  @decision = Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedMasterCardMatch
+elsif params[:merchant_account]  == "Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedSsnMatchesDeceased"
+  @decision = Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedSsnMatchesDeceased
+elsif params[:merchant_account]  == "Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedFailedKYC"
+  @decision = Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedFailedKYC
 end
+
   result = Braintree::MerchantAccount.create(
     :individual => {
       :first_name => @decision,
