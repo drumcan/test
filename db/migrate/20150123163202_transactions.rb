@@ -5,7 +5,6 @@ class Transactions < ActiveRecord::Migration
       t.string :status
       t.string :amount
       t.string :transaction_type
-      t.string :merchant_account_id
       t.string :payment_method_id
       t.timestamps	
   end

@@ -3,6 +3,14 @@
   </head>
   <body>
       <form action="/merchant_create" method="POST" id="braintree-payment-form">
+      <select id="merchant_account" name="merchant_account">
+        <option value="Braintree::Test::MerchantAccount::Approve">Success</option>
+        <option value="Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedOFAC">Decline OFAC</option>
+        <option value="Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedMasterCardMatch">Declined Mastercard MATCH</option>
+        <option value="Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedSsnMatchesDeceased">Declined SSN matches deceased</option>
+        <option value="Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedFailedKYC">Declined failed KYC</option>
+      </select>
+        <input type="submit" value="Submit" />
       <h2>Customer Information</h2>
       <p>
         <label>First Name</label>
