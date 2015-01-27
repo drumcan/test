@@ -4,6 +4,19 @@ require "sinatra/activerecord"
 require 'braintree'
 
 
+t_config = Braintree::Configuration.new(:environment => :sandbox, 
+                               :merchant_id => "yz2f2d9s3v4wmygp", 
+                                :public_key => "dsybfx8t64fkmrbd", 
+                               :private_key => "d08ad05929db33a1e0685925cb09ea43")
+p_config = Braintree::Configuration.new(:environment => :sandbox, 
+                               :merchant_id => "demo_merchant", 
+                                :public_key => "vhd8pf4bjcxvrpy4", 
+                               :private_key => "0210baff4bfd241592f4d4894d48b2ae")
+
+t_gateway = Braintree::Gateway.new(t_config)
+p_gateway = Braintree::Gateway.new(p_config)
+
+
 Braintree::Configuration.environment = :sandbox
 Braintree::Configuration.merchant_id = "yz2f2d9s3v4wmygp"
 Braintree::Configuration.public_key = "dsybfx8t64fkmrbd"
@@ -74,7 +87,7 @@ post "/sign_up" do
 end
 
 post "/checkout" do
-  result = Braintree::Transaction.sale(
+  result = t_gateway.transaction.sale(
     :merchant_account_id => "magento",
     :amount => "10.00",
     :payment_method_nonce => params[:payment_method_nonce],
@@ -194,7 +207,7 @@ end
   
   @number = Time.now.to_s.tr('^A-Za-z0-9', '')
 
-  result = Braintree::MerchantAccount.create(
+  result = t_gateway.merchant_account.create(
     :individual => {
       :first_name => @decision,
       :last_name => params[:last_name],
@@ -223,20 +236,19 @@ end
       erb :index 
   else
      result.message
-  
   end
 end
 
 get "/webhooks_merchant_account" do
 
 challenge = request.params["bt_challenge"]
-  challenge_response = Braintree::WebhookNotification.verify(challenge)
+  challenge_response = t_gateway.webhook_notification.verify(challenge)
   return [200, challenge_response]
 end
 
 post "/webhooks_merchant_account" do
 
-notification = Braintree::WebhookNotification.parse(
+notification = t_gateway.webhook_notification.parse(
     request.params["bt_signature"],
     request.params["bt_payload"]
   )
@@ -265,25 +277,15 @@ get "/merchants" do
 end
 
 get "/webhooks" do
-
-Braintree::Configuration.environment = :sandbox
-Braintree::Configuration.merchant_id = "demo_merchant"
-Braintree::Configuration.public_key = "vhd8pf4bjcxvrpy4"
-Braintree::Configuration.private_key = "0210baff4bfd241592f4d4894d48b2ae"
   
   challenge = request.params["bt_challenge"]
-  challenge_response = Braintree::WebhookNotification.verify(challenge)
+  challenge_response = p_gateway.webhook_notification.verify(challenge)
   return [200, challenge_response]
 end
 
 post "/webhooks" do
 
-Braintree::Configuration.environment = :sandbox
-Braintree::Configuration.merchant_id = "demo_merchant"
-Braintree::Configuration.public_key = "vhd8pf4bjcxvrpy4"
-Braintree::Configuration.private_key = "0210baff4bfd241592f4d4894d48b2ae"
-
-    notification = Braintree::WebhookNotification.parse(request.params["bt_signature"],
+    notification = p_gateway.webhook_notification.parse(request.params["bt_signature"],
                                                         request.params["bt_payload"])
     partner = Partners.new
     partner.partners_merchant_id = notification.partner_merchant.partner_merchant_id
