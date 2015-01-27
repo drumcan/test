@@ -178,17 +178,19 @@ end
 
 post "/merchant_create" do 
 
-  if params[:merchant_account] == "Braintree::Test::MerchantAccount::Approve" 
+  if params[:merchant_account] == "Approve" 
   @decision = Braintree::Test::MerchantAccount::Approve
-elsif params[:merchant_account] == "Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedOFAC"
+elsif params[:merchant_account] == "DeclinedOFAC"
   @decision = Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedOFAC
-elsif params[:merchant_account]  == "Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedMasterCardMatch"
+elsif params[:merchant_account]  == "DeclinedMasterCardMatch"
   @decision = Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedMasterCardMatch
-elsif params[:merchant_account]  == "Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedSsnMatchesDeceased"
+elsif params[:merchant_account]  == "DeclinedSsnMatchesDeceased"
   @decision = Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedSsnMatchesDeceased
-elsif params[:merchant_account]  == "Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedFailedKYC"
+elsif params[:merchant_account]  == "DeclinedFailedKYC"
   @decision = Braintree::ErrorCodes::MerchantAccount::ApplicantDetails::DeclinedFailedKYC
 end
+  
+  @number = Time.now.to_s.tr('^A-Za-z0-9', '')
 
   result = Braintree::MerchantAccount.create(
     :individual => {
@@ -211,7 +213,7 @@ end
     },
     :tos_accepted => true,
     :master_merchant_account_id => "hdpcgvhz4rhydzf3",
-    :id => params[:id]
+    :id => @number
   )
   
   if result.success?
