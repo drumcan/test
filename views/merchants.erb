@@ -1,5 +1,12 @@
-<h1>Sub Merchants</h1>
+<table style="width:100%">
+	<tr>
+		<td>Merchant Account Id</td>
+		<td>Status</td>	
+	</tr>
+	
 <% @merchants.each do |merchant| %>
-  Name: <%= merchant.merchant_account_id %><br>
-  Status: <%= merchant.status %><br>
+  <tr>
+    <td><%= merchant.merchant_account_id %></td>
+    <td><%= merchant.status %></td>
+  </tr>  
 <% end %>
