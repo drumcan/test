@@ -178,6 +178,8 @@ end
 
 post "/merchant_create" do 
 
+  @title = "Merchant Created Successfully"
+
   if params[:merchant_account] == "Approve" 
   @decision = Braintree::Test::MerchantAccount::Approve
 elsif params[:merchant_account] == "DeclinedOFAC"
@@ -218,6 +220,7 @@ end
   
   if result.success?
       "Success! Status: #{result.merchant_account.status}"
+      erb :index 
   else
      result.message
   
