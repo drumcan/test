@@ -41,22 +41,15 @@ end
 
 get "/braintree" do
   @title = "Partners"
-  @client_token = Braintree::ClientToken.generate
   @partners = Partners.all
   erb :braintree
 end
-
-get "/client_token" do
-  Braintree::ClientToken.generate
-end
-
 
 get "/threedsecure" do
   @title = "3D Secure"
   @client_token = t_gateway.client_token.generate
   erb :threedsecure
 end
-
 
 get "/delegated" do
   @title = "Dropin UI"
@@ -66,7 +59,7 @@ end
 
 get "/shipping" do
   @title = "Paypal with Shipping Address" 
-  @client_token = Braintree::ClientToken.generate
+  @client_token = t_gateway.client_token.generate
   erb :shipping
 end
 
@@ -77,7 +70,7 @@ end
 
 get "/stored_customer" do 
   @title = "Dropin with Existing Customer"
-  @client_token = Braintree::ClientToken.generate(
+  @client_token = t_gateway.client_token.generate(
     :customer_id => "60378774")   
   erb :store_customer
 end

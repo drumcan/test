@@ -11,7 +11,7 @@
    </script>
     <div id="checkout"></div>
     <script type="text/javascript">
-  braintree.setup("<%= @client_token %>", 'dropin', {
+  braintree.setup(<%= @client_token %>, 'dropin', {
     container: 'checkout'
   });
     </script> 

@@ -21,7 +21,7 @@
     
     <div id="paypal"></div>
     <script type="text/javascript">
-  braintree.setup("<%= @client_token %>", 'paypal', {
+  braintree.setup(<%= @client_token %>, 'paypal', {
     container: "paypal",enableShippingAddress: "true",
       onSuccess: function(nonce, email, shippingAddress) {
         document.getElementById("street_address").setAttribute("value", shippingAddress.street_address);

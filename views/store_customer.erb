@@ -12,7 +12,7 @@
     <div id="Address"></div>
     <div id="checkout"></div>
     <script type="text/javascript">
-  braintree.setup("<%= @client_token %>", 'dropin', {
+  braintree.setup(<%= @client_token %>, 'dropin', {
     container: "checkout",enableShippingAddress: "true",
       onSuccess: function(nonce, email, shippingAddress) {
         writeAddress(shippingAddress);
