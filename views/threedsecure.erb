@@ -42,10 +42,10 @@ client.verify3DS({
     </script> 
   <form id="checkout" method="post" action="/threedcheckout">
     <input type="hidden" id="nonce" name="nonce"></input>
-     <label>Credit Card</label><input type="text" id="credit_card" name="credit_card" size="20"></input><br>
-     <label>Expiration</label><input type="text" id="exipration_month" name="exipration_month" size="2"></input>
-     <label>/</label><input type="text" id="expiration_year" name="expiration_year" size="2"></input><br>
-     <label>CVV</label><input type="text" id="cvv" name="cvv" size="4"></input><br>
+     <label>Credit Card</label><input type="text" id="credit_card" name="credit_card" size="20" value="4010000000000018"></input><br>
+     <label>Expiration</label><input type="text" id="exipration_month" name="exipration_month" size="2" value="02"></input>
+     <label>/</label><input type="text" id="expiration_year" name="expiration_year" size="2" value="16"></input><br>
+     <label>CVV</label><input type="text" id="cvv" name="cvv" size="4" value="123"></input><br>
     <label>3D Secure Nonce</label>
     <input type="text" id="visible_nonce" name="visible_nonce" size="46"></input>
     
