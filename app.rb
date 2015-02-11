@@ -16,12 +16,6 @@ p_config = Braintree::Configuration.new(:environment => :sandbox,
 t_gateway = Braintree::Gateway.new(t_config)
 p_gateway = Braintree::Gateway.new(p_config)
 
-
-Braintree::Configuration.environment = :sandbox
-Braintree::Configuration.merchant_id = "yz2f2d9s3v4wmygp"
-Braintree::Configuration.public_key = "dsybfx8t64fkmrbd"
-Braintree::Configuration.private_key ="d08ad05929db33a1e0685925cb09ea43"
-
 configure :development, :test do
   set :database, 'sqlite3:development.db'
 end
@@ -57,9 +51,16 @@ get "/client_token" do
 end
 
 
+get "/threedsecure" do
+  @title = "3D Secure"
+  @client_token = t_gateway.client_token.generate
+  erb :threedsecure
+end
+
+
 get "/delegated" do
   @title = "Dropin UI"
-  @client_token = Braintree::ClientToken.generate
+  @client_token = t_gateway.client_token.generate
   erb :delegated
 end
 
@@ -84,6 +85,25 @@ end
 post "/sign_up" do
   @title = "Partners Signup"
   redirect "https://sandbox.braintreegateway.com/partners/demo_merchant/connect?partner_merchant_id=#{params[:partner_merchant_id]}"
+end
+
+post "/threedcheckout" do
+
+result = t_gateway.transaction.sale(
+  :amount => "100.00",
+  :payment_method_nonce => params[:nonce],
+  :options => {
+    :three_d_secure => {
+      :required => true
+    }
+  }
+)
+
+if result.success?
+ "Success ID: #{result.transaction.id}"
+  else
+    result.message
+  end
 end
 
 post "/checkout" do
@@ -125,6 +145,8 @@ post "/checkout" do
     transaction.payment_method_id = result.transaction.paypal_details.token
     end
     transaction.save
+
+
     
     customer = Customer.new
     customer.first_name = result.transaction.customer_details.first_name
@@ -152,6 +174,28 @@ post "/checkout" do
   end
 end
 
+=begin post "/create_subscription"
+
+ result = Braintree::Subscription.create(
+      :payment_method_token => params[:payment_token],
+      :plan_id => "test_plan_1"
+    )
+
+   
+  
+
+  subscription = Subscription.new
+  subscription.subscription_id = result.subscription.id
+  subscription.status = result.subscription.status
+  subscription.plan_id = result.subscription.plan
+  subscription.payment_method = result.subscription.payment_method_token
+  subscription.price = result.subscription.price
+  subscription.addon = 
+  subscription.discount = 
+  subscription.trial_period = result.subscription.trial_period
+  subscription.trial_duration = result.subscription.trial_duration
+
+=end 
 get '/transactions' do
   @title = "Tranasction Table"
   @transactions = Transaction.all
@@ -166,7 +210,8 @@ end
 
 post '/find_customer' do
   @payment_method = PaymentMethod.find_by :customer_id => params[:customer_id]
-  p @payment_method
+  @customer = Customer.find_by :customer_id => params[:customer_id]
+  @transactions = Transaction.where :payment_method_id => @payment_method.payment_token
   erb :payment_method_for_customer
   
 end 

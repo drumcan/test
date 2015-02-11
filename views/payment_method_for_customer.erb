@@ -4,15 +4,46 @@
 		<td>Token</td>
 		<td>Payment Instrument Type</td>
 		<td>Customer ID<td>
+	    <td>First Name</td>
+	    <td>Last Name</td>
+		<td>Street Address</td>
+		<td>City</td>
+		<td>State</td>
+		<td>Postal Code</td>
 	</tr>
   <tr>
     <td><%= @payment_method.id %></td>
     <td><%= @payment_method.payment_token %></td>
     <td><%= @payment_method.payment_instrument_type %></td>
     <td><%= @payment_method.customer_id %></td>
+    <td><%= @customer.first_name %></td>
+    <td><%= @customer.last_name %></td>
+    <td><%= @customer.street_address %></td>
+    <td><%= @customer.city %></td>
+    <td><%= @customer.state %></td>
+    <td><%= @customer.postal_code %></td>
+  </tr> 
+  <br></br>
+  <br></br>
+ 
+ 	<tr>
+		<td>Id</td>
+		<td>Transaction ID</td>
+		<td>Status</td>
+		<td>Amount</td>
+		<td>Type</td>
+		<td>Payment Method</td>
+	</tr>
+<% @transactions.each do |transaction| %>
+  <tr>
+    <td><%= transaction.id %></td>
+    <td><%= transaction.transaction_id %></td>
+    <td><%= transaction.status %></td>
+    <td><%= transaction.amount %></td>
+    <td><%= transaction.transaction_type %></td>
+    <td><%= transaction.payment_method_id %></td>
   </tr>  
-
-
+<% end %>
 
 
 
