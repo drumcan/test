@@ -6,52 +6,45 @@
   <body>
     <div id="checkout"></div>
     <script>
-  var client = new braintree.api.Client({
-  clientToken: <%= @client_token %>
-});
+      var client = new braintree.api.Client({
+      clientToken: <%= @client_token %>
+      });
 
-  function submitform()
-{
-    
-client.verify3DS({
-      amount: 100,
-      creditCard: {
-        number: document.getElementById("credit_card").value,
-        expirationMonth: document.getElementById("exipration_month").value,
-        expirationYear: document.getElementById("expiration_year").value,
-        cvv: document.getElementById("cvv").value 
-       }
-}, function (error, response) {
-  if (!error) {
-
-    var nonce = response.nonce;
-    document.getElementById("nonce").value = nonce;
-    document.getElementById("visible_nonce").value = nonce;
-    alert(response.nonce);
-    document.forms["checkout"].submit();
-  } else {
-    // Handle errors
-    var p = document.createElement("p");
-    p.innerHTML = error.message;
-    document.body.appendChild(p);
-  }
-});
-
-   
-}
+    function submitform(){
+      client.verify3DS({
+        amount: 100,
+        creditCard: {
+          number: document.getElementById("credit_card").value,
+          expirationMonth: document.getElementById("exipration_month").value,
+          expirationYear: document.getElementById("expiration_year").value,
+          cvv: document.getElementById("cvv").value 
+          }
+      }, function (error, response) {
+        if (!error) {
+          var nonce = response.nonce;
+          document.getElementById("nonce").value = nonce;
+          document.getElementById("visible_nonce").value = nonce;
+          alert(response.nonce);
+          document.forms["checkout"].submit();
+        } else {
+        // Handle errors
+          var p = document.createElement("p");
+          p.innerHTML = error.message;
+          document.body.appendChild(p);
+        }
+      });
+    } 
     </script> 
-  <form id="checkout" method="post" action="/threedcheckout">
-    <input type="hidden" id="nonce" name="nonce"></input>
-     <label>Credit Card</label><input type="text" id="credit_card" name="credit_card" size="20" value="4010000000000018"></input><br>
-     <label>Expiration</label><input type="text" id="exipration_month" name="exipration_month" size="2" value="02"></input>
-     <label>/</label><input type="text" id="expiration_year" name="expiration_year" size="2" value="16"></input><br>
-     <label>CVV</label><input type="text" id="cvv" name="cvv" size="4" value="123"></input><br>
-    <label>3D Secure Nonce</label>
-    <input type="text" id="visible_nonce" name="visible_nonce" size="46"></input>
-    
-
+    <form id="checkout" method="post" action="/threedcheckout">
+      <input type="hidden" id="nonce" name="nonce"></input>
+      <label>Credit Card</label><input type="text" id="credit_card" name="credit_card" size="20" value="4010000000000018"></input><br>
+      <label>Expiration</label><input type="text" id="exipration_month" name="exipration_month" size="2" value="02"></input>
+      <label>/</label><input type="text" id="expiration_year" name="expiration_year" size="2" value="16"></input><br>
+      <label>CVV</label><input type="text" id="cvv" name="cvv" size="4" value="123"></input><br>
+      <label>3D Secure Nonce</label>
+      <input type="text" id="visible_nonce" name="visible_nonce" size="46"></input>
     <div id="submit"></div>
       <a href="javascript: submitform()">Submit</a>
-  </form>
- </body>   
+    </form>
+  </body>   
 </html>
