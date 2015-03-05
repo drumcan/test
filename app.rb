@@ -39,6 +39,10 @@ get "/" do
   erb :index
 end
 
+get "/iframe" do
+   erb :iframe
+end
+
 get "/braintree" do
   @title = "Partners"
   @partners = Partners.all
