@@ -1,0 +1,56 @@
+<!DOCTYPE html
+<html>
+  <head>
+    <script src="https://assets.braintreegateway.com/js/beta/braintree-hosted-fields-beta-latest.js
+"></script>
+    <script src="https://js.braintreegateway.com/v1/braintree-data.js"></script>
+  </head>
+  <body>
+  <form id="checkout" method="post" action="/checkout">
+    <script>
+  BraintreeData.setup("yz2f2d9s3v4wmygp", "checkout", BraintreeData.environments.sandbox);
+   </script>
+    <div id="checkout"></div>
+    <script type="text/javascript">
+  braintree.setup(<%= @client_token %>, 'hosted-fields', {
+    id: 'checkout',
+    creditCard: {
+          height: "36px",
+          number: {
+            selector: "#card-number"
+          },
+          expirationDate: {
+            selector: "#expiration-date"
+          },
+          cvv: {
+            selector: "#cvv"
+          }
+        }
+  });
+    </script>
+    <label for="card-number">Card Number</label>
+    <div id="card-number"></div>
+    <label for="cvv">CVV</label>
+    <div id="cvv"></div>
+
+    <label for="expiration-date">Expiration Date</label>
+    <div id="expiration-date"></div>
+ 
+    <label>Customer First Name</label>
+    <input type="text" id="first_name" name="first_name" size="20"></input>
+    <label>Customer Last Name</label>
+    <input type="text" id="last_name" name="last_name" size="20"></input>
+    <div id="Address"></div>
+    <label>Street Address</label>
+    <input type="text" id="street_address" name="street_address" size="20"></input>
+    <label>Postal Code</label>
+    <input type="text" id="postal_code" name="postal_code" size="6"></input>
+    <label>City</label>
+    <input type="text" id="city" name="city" size="20"></input>
+    <label>State</label>
+    <input type="text" id="state" name="state" size="2"></input>
+    <div id="submit"></div>
+    <input type="submit" value="Pay $10">
+  </form>
+ </body>   
+</html>

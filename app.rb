@@ -61,6 +61,12 @@ get "/delegated" do
   erb :delegated
 end
 
+get "/hosted_fields" do
+  @title = "Hosted Fields"
+  @client_token = t_gateway.client_token.generate
+  erb :hosted_fields
+end  
+
 get "/shipping" do
   @title = "Paypal with Shipping Address" 
   @client_token = t_gateway.client_token.generate
