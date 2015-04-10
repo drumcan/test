@@ -4,6 +4,54 @@
     <script src="https://assets.braintreegateway.com/js/beta/braintree-hosted-fields-beta-latest.js
 "></script>
     <script src="https://js.braintreegateway.com/v1/braintree-data.js"></script>
+  <style>
+    #card-number {
+      border: 1px solid #333;
+      height: 45;
+      width: 250;
+      font-size: 18pt;
+      -webkit-transition: border-color 160ms;
+      transition: border-color 160ms;
+    }
+    #card-number.braintree-hosted-fields-focused {
+      border-color: #777;
+    }
+    #card-number.braintree-hosted-fields-invalid {
+      border-color: tomato;
+    }
+    #card-number.braintree-hosted-fields-valid {
+      border-color: limegreen;
+    }
+    #cvv {
+      border: 1px solid #333;
+      height: 45;
+      width: 75;
+      font-size: 18pt;
+      -webkit-transition: border-color 160ms;
+      transition: border-color 160ms;
+    }
+    #cvv.braintree-hosted-fields-valid {
+      border-color: limegreen;
+    }
+    #cvv.braintree-hosted-fields-invalid {
+    border-color: tomato;
+    }
+    #expiration-date {
+      border: 1px solid #333;
+      height: 45;
+      width: 75;
+      font-size: 18pt;
+      -webkit-transition: border-color 160ms;
+      transition: border-color 160ms;
+    }
+    #expiration-date.braintree-hosted-fields-valid {
+      border-color: limegreen;
+    }
+    #expiration-date.braintree-hosted-fields-invalid {
+    border-color: tomato;
+    }
+
+  </style>
   </head>
   <body>
   <form id="checkout" method="post" action="/checkout">
@@ -15,26 +63,28 @@
   braintree.setup(<%= @client_token %>, 'hosted-fields', {
     id: 'checkout',
     creditCard: {
-          height: "36px",
+      styles: {
+        "input": {
+          "font-size": "16pt",
+          "color": "#3A3A3A"
+         }},
           number: {
-            selector: "#card-number"
+            selector: "#card-number",
+            placeholder: "Credit Card #"
           },
           expirationDate: {
-            selector: "#expiration-date"
+            selector: "#expiration-date",
+            placeholder: "Exp"
           },
           cvv: {
-            selector: "#cvv"
+            selector: "#cvv",
+            placeholder: "CVV"
           }
         }
   });
     </script>
-    <label for="card-number">Card Number</label>
     <div id="card-number"></div>
-    <label for="cvv">CVV</label>
-    <div id="cvv"></div>
-
-    <label for="expiration-date">Expiration Date</label>
-    <div id="expiration-date"></div>
+    <div id="cvv"></div><div id="expiration-date"></div>
  
     <label>Customer First Name</label>
     <input type="text" id="first_name" name="first_name" size="20"></input>
