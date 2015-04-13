@@ -90,6 +90,10 @@ post "/sign_up" do
   redirect "https://sandbox.braintreegateway.com/partners/demo_merchant/connect?partner_merchant_id=#{params[:partner_merchant_id]}"
 end
 
+post "/hosted_fields" do 
+  @title = "Hosted Fields"
+end
+
 post "/threedcheckout" do
 
 result = t_gateway.transaction.sale(
